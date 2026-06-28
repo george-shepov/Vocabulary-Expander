@@ -14,6 +14,13 @@ const flashcards = document.getElementById('flashcards');
 const languageSelector = document.getElementById('language-selector');
 const fileInput = document.getElementById('file-input');
 const sampleSelector = document.getElementById('sample-text-selector');
+const parserPaths = {
+  pdfModule:
+    window.VOCAB_PARSER_PATHS?.pdfModule || './node_modules/pdfjs-dist/legacy/build/pdf.mjs',
+  pdfWorker:
+    window.VOCAB_PARSER_PATHS?.pdfWorker ||
+    './node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs'
+};
 let pdfjsImport;
 
 function escapeHtml(text) {
@@ -102,6 +109,7 @@ async function fetchTranslation(word, language) {
 
 function renderSelectableText(text) {
   tokenizedText.innerHTML = '';
+  // Keep natural words together across alphabets (Unicode letters + apostrophes/hyphens).
   const fragments = text.match(/\p{L}[\p{L}'’-]*|[^\p{L}]+/gu) || [];
 
   for (const fragment of fragments) {
@@ -166,9 +174,9 @@ async function extractTextFromFile(file) {
   }
 
   if (name.endsWith('.pdf')) {
-    pdfjsImport = pdfjsImport || import('./node_modules/pdfjs-dist/legacy/build/pdf.mjs');
+    pdfjsImport = pdfjsImport || import(parserPaths.pdfModule);
     const pdfjsLib = await pdfjsImport;
-    pdfjsLib.GlobalWorkerOptions.workerSrc = './node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = parserPaths.pdfWorker;
 
     const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
     const pages = [];
