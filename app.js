@@ -22,6 +22,7 @@ const parserPaths = {
     './node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs'
 };
 let pdfjsImport;
+const createdFlashcards = new Set();
 
 function escapeHtml(text) {
   return text
@@ -135,6 +136,11 @@ function createList(items, emptyFallback) {
 }
 
 async function addFlashcard(word) {
+  const flashcardKey = `${languageSelector.value}:${word}`;
+  if (createdFlashcards.has(flashcardKey)) {
+    return;
+  }
+
   const [info, translation] = await Promise.all([
     fetchWordInfo(word),
     fetchTranslation(word, languageSelector.value)
@@ -155,6 +161,7 @@ async function addFlashcard(word) {
   `;
 
   flashcards.prepend(card);
+  createdFlashcards.add(flashcardKey);
 }
 
 async function extractTextFromFile(file) {
