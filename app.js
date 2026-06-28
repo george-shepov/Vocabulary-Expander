@@ -102,10 +102,10 @@ async function fetchTranslation(word, language) {
 
 function renderSelectableText(text) {
   tokenizedText.innerHTML = '';
-  const fragments = text.match(/[A-Za-z][A-Za-z'-]*|[^A-Za-z]+/g) || [];
+  const fragments = text.match(/\p{L}[\p{L}'’-]*|[^\p{L}]+/gu) || [];
 
   for (const fragment of fragments) {
-    if (/^[A-Za-z]/.test(fragment)) {
+    if (/^\p{L}/u.test(fragment)) {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'word-token';
