@@ -39,7 +39,13 @@ function loadLocal() {
 function persistSqliteDb() {
   if (!state.db) return;
   const data = state.db.export();
-  const b64 = btoa(String.fromCharCode(...data));
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let i = 0; i < data.length; i += chunkSize) {
+    const chunk = data.subarray(i, i + chunkSize);
+    binary += String.fromCharCode.apply(null, chunk);
+  }
+  const b64 = btoa(binary);
   localStorage.setItem('vocabulary-expander-sqlite', b64);
 }
 
@@ -111,7 +117,11 @@ function renderList() {
   ui.wordList.innerHTML = '';
   for (const card of state.cards) {
     const item = document.createElement('li');
-    item.innerHTML = `<strong>${card.word}</strong><span>${card.meaning}</span>`;
+    const word = document.createElement('strong');
+    word.textContent = card.word;
+    const meaning = document.createElement('span');
+    meaning.textContent = card.meaning;
+    item.append(word, meaning);
     ui.wordList.appendChild(item);
   }
 }
@@ -125,7 +135,12 @@ function renderFlashcard() {
 
   const card = state.cards[state.cardIndex % state.cards.length];
   ui.flashcard.classList.remove('empty');
-  ui.flashcard.innerHTML = `<strong>${card.word}</strong><p>${card.meaning}</p>`;
+  ui.flashcard.innerHTML = '';
+  const word = document.createElement('strong');
+  word.textContent = card.word;
+  const meaning = document.createElement('p');
+  meaning.textContent = card.meaning;
+  ui.flashcard.append(word, meaning);
 }
 
 function refreshCardsFromStore() {

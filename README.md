@@ -13,7 +13,7 @@ Phone-first vocabulary flashcard app that runs directly in the browser.
 ## Run
 No build step is required.
 
-Open `/home/runner/work/Vocabulary-Expander/Vocabulary-Expander/index.html` in a browser.
+Open `index.html` in a browser.
 
 ## Notes
 - SQLite mode stores the SQLite database bytes in browser `localStorage`.
