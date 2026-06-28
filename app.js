@@ -46,11 +46,7 @@ function loadLocal() {
 function persistSqliteDb() {
   if (!state.db) return;
   const data = state.db.export();
-  const parts = new Array(data.length);
-  for (let i = 0; i < data.length; i += 1) {
-    parts[i] = String.fromCharCode(data[i]);
-  }
-  const binary = parts.join('');
+  const binary = Array.from(data, (byte) => String.fromCharCode(byte)).join('');
   const b64 = btoa(binary);
   localStorage.setItem('vocabulary-expander-sqlite', b64);
 }
