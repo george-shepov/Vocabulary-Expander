@@ -1,6 +1,5 @@
 const STORAGE_KEY = 'vocabulary-expander-cards';
 const MODE_KEY = 'vocabulary-expander-storage-mode';
-const SQLITE_EXPORT_CHUNK_SIZE = 0x8000;
 const CREATE_TABLE_SQL = `
   CREATE TABLE IF NOT EXISTS cards (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,10 +46,9 @@ function loadLocal() {
 function persistSqliteDb() {
   if (!state.db) return;
   const data = state.db.export();
-  const parts = [];
-  for (let i = 0; i < data.length; i += SQLITE_EXPORT_CHUNK_SIZE) {
-    const chunk = data.subarray(i, i + SQLITE_EXPORT_CHUNK_SIZE);
-    parts.push(String.fromCharCode.apply(null, chunk));
+  const parts = new Array(data.length);
+  for (let i = 0; i < data.length; i += 1) {
+    parts[i] = String.fromCharCode(data[i]);
   }
   const binary = parts.join('');
   const b64 = btoa(binary);
