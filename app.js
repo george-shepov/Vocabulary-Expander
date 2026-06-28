@@ -1,5 +1,12 @@
 const STORAGE_KEY = 'vocabulary-expander-cards';
 const MODE_KEY = 'vocabulary-expander-storage-mode';
+const CREATE_TABLE_SQL = `
+  CREATE TABLE IF NOT EXISTS cards (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    word TEXT UNIQUE NOT NULL,
+    meaning TEXT NOT NULL
+  );
+`;
 
 const state = {
   cards: [],
@@ -68,9 +75,7 @@ async function initSqlite() {
         `https://cdn.jsdelivr.net/npm/sql.js@1.12.0/dist/${file}`,
     });
     state.db = loadSqliteDb(SQL);
-    state.db.exec(
-      `CREATE TABLE IF NOT EXISTS cards (id INTEGER PRIMARY KEY AUTOINCREMENT, word TEXT UNIQUE NOT NULL, meaning TEXT NOT NULL);`
-    );
+    state.db.exec(CREATE_TABLE_SQL);
     persistSqliteDb();
     state.sqliteReady = true;
     setStatus('SQLite initialized in browser.');
@@ -191,7 +196,7 @@ ui.addForm.addEventListener('submit', async (event) => {
     }
   } else {
     const existing = loadLocal();
-    if (existing.some((item) => item.word.toLowerCase() === card.word.toLowerCase())) {
+    if (existing.some((item) => item.word === card.word)) {
       setStatus('Word already exists in localStorage.');
       return;
     }
