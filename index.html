@@ -31,7 +31,7 @@
 
         <div class="controls">
           <label for="file-input">Upload file (.txt, .md, .docx, .pdf)</label>
-          <input id="file-input" type="file" accept=".txt,.md,.markdown,.docx,.pdf,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+          <input id="file-input" type="file" accept=".txt,.md,.markdown,.docx,.pdf" />
         </div>
 
         <label for="text-input">Or paste your own text</label>
@@ -63,8 +63,7 @@
       </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.9.0/mammoth.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="./node_modules/mammoth/mammoth.browser.min.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

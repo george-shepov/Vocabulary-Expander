@@ -26,7 +26,12 @@ Simple browser app for learning unfamiliar words from any text.
 
 ## Run
 
-Open `/home/runner/work/Vocabulary-Expander/Vocabulary-Expander/index.html` in a browser.
+```bash
+npm install
+npm start
+```
+
+Then open `http://127.0.0.1:4173/index.html` in a browser.
 
 ## Validation
 

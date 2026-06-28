@@ -14,6 +14,7 @@ const flashcards = document.getElementById('flashcards');
 const languageSelector = document.getElementById('language-selector');
 const fileInput = document.getElementById('file-input');
 const sampleSelector = document.getElementById('sample-text-selector');
+let pdfjsImport;
 
 function escapeHtml(text) {
   return text
@@ -165,12 +166,9 @@ async function extractTextFromFile(file) {
   }
 
   if (name.endsWith('.pdf')) {
-    if (typeof pdfjsLib === 'undefined') {
-      throw new Error('PDF parser failed to load.');
-    }
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    pdfjsImport = pdfjsImport || import('./node_modules/pdfjs-dist/legacy/build/pdf.mjs');
+    const pdfjsLib = await pdfjsImport;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = './node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs';
 
     const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
     const pages = [];
