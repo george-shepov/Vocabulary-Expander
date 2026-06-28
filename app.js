@@ -110,7 +110,7 @@ async function fetchTranslation(word, language) {
 function renderSelectableText(text) {
   tokenizedText.innerHTML = '';
   // Keep natural words together across alphabets (Unicode letters + apostrophes/hyphens).
-  const fragments = text.match(/\p{L}[\p{L}'’-]*|[^\p{L}]+/gu) || [];
+  const fragments = text.match(/\p{L}[-\p{L}'’]*|[^\p{L}]+/gu) || [];
 
   for (const fragment of fragments) {
     if (/^\p{L}/u.test(fragment)) {
