@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vocabulary Expander</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/sql.js@1.12.0/dist/sql-wasm.js"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>Vocabulary Expander</h1>
+        <p class="subtitle">Phone-first flashcards in the browser.</p>
+      </header>
+
+      <section class="card">
+        <label class="row">
+          <span>Storage</span>
+          <select id="storageMode">
+            <option value="localStorage">localStorage</option>
+            <option value="sqlite">SQLite (in browser)</option>
+          </select>
+        </label>
+        <button id="initSqlite" class="ghost" type="button">Initialize SQLite</button>
+      </section>
+
+      <section class="card">
+        <h2>Add Word</h2>
+        <form id="addForm">
+          <label>
+            Word
+            <input id="word" required maxlength="80" />
+          </label>
+          <label>
+            Meaning
+            <textarea id="meaning" required maxlength="300"></textarea>
+          </label>
+          <button type="submit">Save</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Flashcards</h2>
+        <button id="nextCard" type="button">Next card</button>
+        <article id="flashcard" class="flashcard empty">No cards yet.</article>
+      </section>
+
+      <section class="card">
+        <h2>All Words</h2>
+        <ul id="wordList" class="word-list"></ul>
+      </section>
+
+      <p id="status" class="status" aria-live="polite"></p>
+    </main>
+  </body>
+</html>
