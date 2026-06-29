@@ -1,0 +1,25 @@
+{
+  "name": "vocabulary-expander",
+  "version": "1.0.0",
+  "description": "A simple app for learning unfamiliar words from uploaded text with flashcards and multilingual support.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --check app.js",
+    "start": "python3 -m http.server 4173"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/george-shepov/Vocabulary-Expander.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/george-shepov/Vocabulary-Expander/issues"
+  },
+  "homepage": "https://github.com/george-shepov/Vocabulary-Expander#readme",
+  "dependencies": {
+    "mammoth": "^1.12.0",
+    "pdfjs-dist": "^6.1.200"
+  }
+}
