@@ -5,14 +5,9 @@ Browser-based vocabulary assessment and learning app for estimating receptive vo
 ## Features
 
 - Estimate general receptive English vocabulary with a 20-question, frequency-banded prototype
+- Penalize incorrect guesses while allowing an explicit “I do not know” answer
 - Report an approximate range rather than a falsely precise word count
-- Measure domain terminology separately:
-  - software development
-  - legal/court vocabulary
-- Store one shared browser profile under `gs_vocab_profile_v1`
-- Share the estimate, domain scores, and unfamiliar-word queue with:
-  - FieldKit
-  - Developer Interview Prep
+- Keep an app-local vocabulary estimate and unfamiliar-word learning queue
 - Load English content from:
   - plain text (`.txt`)
   - markdown (`.md`, `.markdown`)
@@ -27,24 +22,13 @@ Browser-based vocabulary assessment and learning app for estimating receptive vo
 - Optional translations to Russian, Spanish, French, German, Chinese, and Ukrainian
 - Installable application shell with offline caching for local assets
 
-## Shared integration module
+## Estimator limitation
 
-`vocabulary-toolkit.js` and `vocabulary-toolkit.css` provide the reusable assessment/profile UI consumed by the other applications.
+The current 20-question assessment is a practical prototype. It should report a broad approximate range, not claim a validated or exact vocabulary count. A production-grade estimate would require a larger frequency-calibrated question bank, representative user testing, and confidence-interval analysis.
 
-```html
-<link rel="stylesheet" href="/Vocabulary-Expander/vocabulary-toolkit.css">
-<div id="vocabularyToolkit"></div>
-<script src="/Vocabulary-Expander/vocabulary-toolkit.js"></script>
-<script>
-  VocabularyToolkit.mount(document.getElementById('vocabularyToolkit'), {
-    defaultBank: 'developer',
-    showReader: true,
-    sourceLabel: 'My App'
-  });
-</script>
-```
+## Relationship to FieldKit
 
-The general estimate is intentionally described as a prototype. A production-grade claim would require a larger validated question bank, calibration data, and confidence-interval analysis.
+Vocabulary Expander remains its own application and repository. FieldKit may list it in the suite launcher, but FieldKit does not own or merge this app’s question bank, storage, or release lifecycle.
 
 ## Run
 
