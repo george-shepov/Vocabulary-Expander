@@ -50,7 +50,7 @@
 
       <section class="panel">
         <h2>2) Select unfamiliar words</h2>
-        <p>Click any word below to save it to the shared learning queue and create a flashcard.</p>
+        <p>Click any word below to save it to this app’s learning queue and create a flashcard.</p>
         <div id="tokenized-text" aria-live="polite"></div>
       </section>
 
@@ -70,21 +70,12 @@
       </section>
     </main>
 
-    <script>
-      window.VOCABULARY_TOOLKIT_CONFIG = {
-        defaultBank: 'general',
-        showReader: false,
-        sourceLabel: 'Vocabulary-Expander',
-        fullAppHref: '',
-        homeHref: ''
-      };
-    </script>
     <script src="./vocabulary-toolkit.js"></script>
     <script>
-      window.VocabularyToolkit?.mount(
-        document.getElementById('vocabularyToolkit'),
-        window.VOCABULARY_TOOLKIT_CONFIG
-      );
+      window.VocabularyToolkit?.mount(document.getElementById('vocabularyToolkit'), {
+        showReader: false,
+        sourceLabel: 'Vocabulary-Expander'
+      });
     </script>
     <script src="./node_modules/mammoth/mammoth.browser.min.js"></script>
     <script src="./app.js"></script>
