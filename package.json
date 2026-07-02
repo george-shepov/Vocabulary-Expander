@@ -1,6 +1,6 @@
 {
   "name": "vocabulary-expander",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "Estimate receptive vocabulary and learn unfamiliar words from uploaded text with shared profiles, flashcards, and multilingual support.",
   "main": "app.js",
   "scripts": {
