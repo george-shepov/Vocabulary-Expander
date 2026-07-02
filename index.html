@@ -3,16 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1f2a57" />
     <title>Vocabulary Expander</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./vocabulary-toolkit.css" />
   </head>
   <body>
     <main>
       <h1>Vocabulary Expander</h1>
       <p>
-        Load text (TXT, Markdown, DOCX, PDF), click unfamiliar words, and build flashcards with
+        Estimate receptive vocabulary, collect unfamiliar words from any text, and build flashcards with
         definitions, synonyms, antonyms, examples, and translations.
       </p>
+
+      <section class="panel">
+        <div id="vocabularyToolkit"></div>
+      </section>
 
       <section class="panel">
         <h2>1) Load text</h2>
@@ -42,8 +49,8 @@
       </section>
 
       <section class="panel">
-        <h2>2) Select words</h2>
-        <p>Click any word below to create a flashcard.</p>
+        <h2>2) Select unfamiliar words</h2>
+        <p>Click any word below to save it to the shared learning queue and create a flashcard.</p>
         <div id="tokenized-text" aria-live="polite"></div>
       </section>
 
@@ -63,7 +70,34 @@
       </section>
     </main>
 
+    <script>
+      window.VOCABULARY_TOOLKIT_CONFIG = {
+        defaultBank: 'general',
+        showReader: false,
+        sourceLabel: 'Vocabulary-Expander',
+        fullAppHref: '',
+        homeHref: ''
+      };
+    </script>
+    <script src="./vocabulary-toolkit.js"></script>
+    <script>
+      window.VocabularyToolkit?.mount(
+        document.getElementById('vocabularyToolkit'),
+        window.VOCABULARY_TOOLKIT_CONFIG
+      );
+    </script>
     <script src="./node_modules/mammoth/mammoth.browser.min.js"></script>
     <script src="./app.js"></script>
+    <script>
+      document.getElementById('tokenized-text')?.addEventListener('click', event => {
+        const button = event.target.closest('.word-token');
+        if (button?.dataset.word) {
+          window.VocabularyToolkit?.rememberWord(button.dataset.word, 'Vocabulary-Expander:flashcard');
+        }
+      });
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+      }
+    </script>
   </body>
 </html>
