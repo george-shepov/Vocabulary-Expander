@@ -1,0 +1,10 @@
+{
+  "name": "Vocabulary Expander",
+  "short_name": "Vocabulary",
+  "description": "Estimate receptive vocabulary, collect unfamiliar words, and build flashcards.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#1f2a57"
+}
