@@ -32,7 +32,7 @@
   }
 
   function loadProfile() {
-    const parsed = safeParse(localStorage.getItem(PROFILE_KEY), {});
+    const parsed = safeParse(localStorage.getItem(PROFILE_KEY), {}) || {};
     return {
       schemaVersion: SCHEMA_VERSION,
       updatedAt: parsed.updatedAt || null,
